@@ -23,5 +23,5 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.get('/', async ({ view }) => {
   return view.render('welcome')
 })
-
-Route.post('/api/v1/monitoring', 'MonitoringsController.ingest')
+Route.get('/dashboard', 'DashboardController.index')
+Route.post('/api/v1/monitoring', 'MonitoringController.ingest')
