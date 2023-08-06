@@ -12,6 +12,7 @@ export default class extends BaseSeeder {
     })
 
     await Endpoint.create({
+      slug: '2a4c-e3b2-4acb-c4ab',
       method: 'POST',
       project_id: 1,
       url_path: '/pay'

@@ -1,0 +1,68 @@
+@layout('layouts/app')
+
+@section('content')
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row">
+        <div class="card mb-4">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <span class="badge bg-label-primary me-1"><b>{{ endpoint.method.toUpperCase() }}</b></span>
+                        </div>
+                        <div>
+                            <span class="text-right"><small><i class="far fa-clock"></i> {{ '31 seconds ago'
+                                    }}</small></span>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="mt-2">
+                        <h5 class="fw-bold">{{ endpoint.url_path }}</h5>
+                    </div>
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="card border shadow-none p-0" style="border-style: dashed !important;">
+                                <div class="card-body">
+                                    <i class="far fa-clock text-success"></i>
+                                    <span>Avg.load time</span>
+                                    <h5 class="card-title fw-bold mt-2 mb-0">{{ avg_load_time.toFixed(2) }}ms</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card border shadow-none p-0" style="border-style: dashed !important;">
+                                <div class="card-body">
+                                    <i class="far fa-clock text-success"></i>
+                                    <span>Total throughput</span>
+                                    <h5 class="card-title fw-bold mt-2 mb-0">{{ endpoint.requests_count }}</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card border shadow-none p-0" style="border-style: dashed !important;">
+                                <div class="card-body">
+                                    <i class="far fa-clock text-success"></i>
+                                    <span>Avg.load time</span>
+                                    <h5 class="card-title fw-bold mt-2 mb-0">6.7ms</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card border shadow-none p-0" style="border-style: dashed !important;">
+                                <div class="card-body">
+                                    <i class="far fa-clock text-success"></i>
+                                    <span>Avg.load time</span>
+                                    <h5 class="card-title fw-bold mt-2 mb-0">6.7ms</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+</div>
+@endsection

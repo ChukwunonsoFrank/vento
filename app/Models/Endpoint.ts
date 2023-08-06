@@ -14,6 +14,9 @@ export default class Endpoint extends BaseModel {
   public project_id: number
 
   @column()
+  public slug: string
+
+  @column()
   public url_path: string
 
   @column()
