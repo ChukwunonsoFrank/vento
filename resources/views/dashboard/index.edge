@@ -16,7 +16,7 @@
                         <h5 class="text-nowrap mb-2">Requests</h5>
                       </div>
                       <div class="mt-sm-auto">
-                        <h3 class="mb-0">{{ requests_count }}</h3>
+                        <h3 class="mb-0">{{ requests_total }}</h3>
                       </div>
                     </div>
                   </div>
@@ -36,7 +36,7 @@
                         <h5 class="text-nowrap mb-2">Endpoints</h5>
                       </div>
                       <div class="mt-sm-auto">
-                        <h3 class="mb-0">{{ endpoints_count }}</h3>
+                        <h3 class="mb-0">{{ endpoints_total }}</h3>
                       </div>
                     </div>
                   </div>
@@ -84,7 +84,64 @@
               </div>
         </div>
     </div>
+
     <div class="row">
+      <h5 class="card-header">Most Recent Endpoints</h5>
+      <div>
+        <!-- Basic Bootstrap Table -->
+        <div class="card">
+          <div class="table-responsive text-nowrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Endpoint</th>
+                  <th>Throughput</th>
+                  <th>Avg.load time</th>
+                  <th>P50 Latency</th>
+                  <th>P95 Latency</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody class="table-border-bottom-0">
+                  @each(endpoint in endpoints_list)
+                    <tr>
+                      <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <span class="badge bg-label-primary me-1"><b>{{ endpoint.method.toUpperCase() }}</b></span> {{ endpoint.url_path }}</td>
+                      <td>{{ endpoint.requests_count }}</td>
+                      <td>
+                        {{ endpoint.avg_load_time.toFixed(2) }}ms
+                      </td>
+                      <td><span class="badge bg-label-primary me-1">Active</span></td>
+                      <td><span class="badge bg-label-primary me-1">Active</span></td>
+                      <td>
+                        <div class="dropdown">
+                          <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                            <i class="bx bx-dots-vertical-rounded"></i>
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="javascript:void(0);"
+                              ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                            >
+                            <a class="dropdown-item" href="javascript:void(0);"
+                              ><i class="bx bx-trash me-1"></i> Delete</a
+                            >
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  @end
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!--/ Basic Bootstrap Table -->
+      </div>
+    </div>
+
+
+
+
+
+    {{--  <div class="row">
       <div class="col-lg-8 mb-4 order-0">
         <div class="card">
           <div class="d-flex align-items-end row">
@@ -549,6 +606,6 @@
         </div>
       </div>
       <!--/ Transactions -->
-    </div>
+    </div>  --}}
   </div>
 @endsection

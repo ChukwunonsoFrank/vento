@@ -6,22 +6,27 @@ import Project from 'App/Models/Project'
 export default class MonitoringController {
     public async ingest ({ request }: HttpContextContract) {
         const project = await Project.all()
-        await Payload.create({
-            project_id: project[0]['$attributes'].id,
-            data: request.body()
-        })
 
         const { method, raw_url } = request.body()
         const existingEndpoint = await Endpoint.query().where('method', method).where('url_path', raw_url).first()
         if (existingEndpoint) {
             existingEndpoint.requests_count = existingEndpoint.requests_count + 1
+            await Payload.create({
+                endpoint_id: existingEndpoint.$attributes.id,
+                data: request.body()
+            })
             await existingEndpoint.save()
         } else {
-            await Endpoint.create({
+            const endpoint = await Endpoint.create({
                 method,
                 url_path: raw_url,
                 project_id: project[0]['$attributes'].id,
                 requests_count: 1
+            })
+
+            await Payload.create({
+                endpoint_id: endpoint.$attributes.id,
+                data: request.body()
             })
         }
 

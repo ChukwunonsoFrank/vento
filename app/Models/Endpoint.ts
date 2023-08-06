@@ -1,5 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+import Payload from 'App/Models/Payload'
+
 
 export default class Endpoint extends BaseModel {
   @column({ isPrimary: true })
@@ -16,6 +18,11 @@ export default class Endpoint extends BaseModel {
 
   @column()
   public requests_count: number
+
+  @hasMany(() => Payload, {
+    foreignKey: 'endpoint_id'
+  })
+  public payloads: HasMany<typeof Payload>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, hasOne, HasOne, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 import ApiKey from 'App/Models/ApiKey'
-import Payload from 'App/Models/Payload'
 import Endpoint from 'App/Models/Endpoint'
 
 export default class Project extends BaseModel {
@@ -24,11 +23,6 @@ export default class Project extends BaseModel {
     foreignKey: 'project_id'
   })
   public api_key: HasOne<typeof ApiKey>
-
-  @hasMany(() => Payload, {
-    foreignKey: 'project_id'
-  })
-  public payloads: HasMany<typeof Payload>
 
   @hasMany(() => Endpoint, {
     foreignKey: 'project_id'
