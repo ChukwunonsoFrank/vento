@@ -15,7 +15,7 @@
                 <h5 class="text-nowrap mb-2">Requests</h5>
               </div>
               <div class="mt-sm-auto">
-                <h3 class="mb-0">{{ requests_total }}</h3>
+                <h3 class="mb-0">{{ requestsTotal }}</h3>
               </div>
             </div>
           </div>
@@ -34,7 +34,7 @@
                 <h5 class="text-nowrap mb-2">Endpoints</h5>
               </div>
               <div class="mt-sm-auto">
-                <h3 class="mb-0">{{ endpoints_total }}</h3>
+                <h3 class="mb-0">{{ endpointsTotal }}</h3>
               </div>
             </div>
           </div>
@@ -99,7 +99,7 @@
               </tr>
             </thead>
             <tbody class="table-border-bottom-0">
-              @each(endpoint in endpoints_list)
+              @each(endpoint in endpointsList)
               <tr>
                 <td>
                   <a href="{{ route('EndpointsController.index', [endpoint.slug]) }}">

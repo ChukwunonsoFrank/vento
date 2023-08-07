@@ -3,22 +3,18 @@ import Endpoint from 'App/Models/Endpoint'
 
 export default class EndpointsController {
     public async index({ params, view }: HttpContextContract) {
-        const endpoint_slug = params.slug
-        const endpoint = await Endpoint.query().where('slug', endpoint_slug).preload('payloads')
-        // const method = endpoint[0].method
-        // const url_path = endpoint[0].url_path
-        // const requests_count = endpoint[0].requests_count
-        // const slug = endpoint[0].slug
-        let avg_load_time
-        let response_time_sum = 0
+        const endpointSlug: string = params.slug
+        const endpoint = await Endpoint.query().where('slug', endpointSlug).preload('payloads')
+        let avgLoadTime: number
+        let responseTimeSum: number = 0
         for (let i = 0; i < endpoint[0].payloads.length; i++) {
-            response_time_sum += endpoint[0].payloads[i].data["duration"]
+            responseTimeSum += endpoint[0].payloads[i].data["duration"]
         }
-        avg_load_time = response_time_sum / endpoint[0].payloads.length
+        avgLoadTime = responseTimeSum / endpoint[0].payloads.length
 
         return view.render('dashboard/endpoint/index', {
             endpoint: endpoint[0],
-            avg_load_time,
+            avgLoadTime,
         })
     }
 }
