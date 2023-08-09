@@ -87,7 +87,7 @@
       <!-- Basic Bootstrap Table -->
       <div class="card">
         <div class="table-responsive text-nowrap">
-          <table class="table">
+          <table class="table table-hover">
             <thead>
               <tr>
                 <th>Endpoint</th>
@@ -95,24 +95,32 @@
                 <th>Avg.load time</th>
                 <th>P50 Latency</th>
                 <th>P95 Latency</th>
-                {{--  <th>Actions</th>  --}}
+                {{-- <th>Actions</th> --}}
               </tr>
             </thead>
             <tbody class="table-border-bottom-0">
               @each(endpoint in endpointsList)
               <tr>
-                <td>
-                  <a href="{{ route('EndpointsController.index', [endpoint.slug]) }}">
-                    <span class="badge bg-label-primary me-1"><b>{{ endpoint.method.toUpperCase() }}</b></span> {{
-                  endpoint.urlPath }}
-                  </a>
+                <form id="endpoint_form" action="{{ route('EndpointsController.index', [endpoint.slug]) }}" method="get"
+                  style="display: none;">
+                  <input type="hidden" name="clicked" value="true">
+                </form>
+                <td style="cursor: pointer;" onclick="event.preventDefault(); document.getElementById('endpoint_form').submit()">
+                    <span class="badge bg-label-primary me-1"><b>{{ endpoint.method.toUpperCase() }}</b></span>
+                    {{ endpoint.urlPath }}
                 </td>
-                <td>{{ endpoint.requestsCount }}</td>
-                <td>
-                  {{ endpoint.avgLoadTime.toFixed(2) }}ms
+                <td style="cursor: pointer;" onclick="event.preventDefault(); document.getElementById('endpoint_form').submit()">
+                  {{ endpoint.requestsCount }}
                 </td>
-                <td><span class="badge bg-label-primary me-1">Active</span></td>
-                <td><span class="badge bg-label-primary me-1">Active</span></td>
+                <td style="cursor: pointer;" onclick="event.preventDefault(); document.getElementById('endpoint_form').submit()">
+                    {{ endpoint.avgLoadTime.toFixed(2) }}ms
+                </td>
+                <td style="cursor: pointer;" onclick="event.preventDefault(); document.getElementById('endpoint_form').submit()">
+                    <span class="badge bg-label-primary me-1">Active</span>
+                </td>
+                <td style="cursor: pointer;" onclick="event.preventDefault(); document.getElementById('endpoint_form').submit()">
+                    <span class="badge bg-label-primary me-1">Active</span>
+                </td>
               </tr>
               @end
             </tbody>

@@ -64,13 +64,11 @@
                                 <input type="hidden" name="payload_data" value="{{ JSON.stringify(payload.data) }}">
                             </form>
                             <tr>
-                                <td style="cursor:pointer">
-                                    <a onclick="event.preventDefault(); document.getElementById('payload_form').submit()">{{ payload.data['timestamp'] }}</a>
+                                <td style="cursor:pointer" onclick="event.preventDefault(); document.getElementById('payload_form').submit()">
+                                    {{ payload.data['timestamp'] }}
                                 </td>
-                                <td class="text-left" style="cursor:pointer">
-                                <a onclick="event.preventDefault(); document.getElementById('payload_form').submit()">
+                                <td class="text-left" style="cursor:pointer" onclick="event.preventDefault(); document.getElementById('payload_form').submit()">
                                     {{ JSON.stringify(payload.data).substr(0, 130) + '...' }}
-                                </a>
                                 </td>
                             </tr>
                             @end
