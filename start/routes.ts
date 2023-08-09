@@ -25,4 +25,5 @@ Route.get('/', async ({ view }) => {
 })
 Route.get('/dashboard', 'DashboardController.index')
 Route.get('/dashboard/endpoint/:slug', 'EndpointsController.index')
+Route.post('/dashboard/endpoint/:slug/payload/:payload_slug', 'EndpointsController.show')
 Route.post('/api/v1/monitoring', 'MonitoringController.ingest')

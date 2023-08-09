@@ -9,6 +9,9 @@ export default class Payload extends BaseModel {
   public endpoint_id: number
 
   @column()
+  public slug: string
+
+  @column()
   public data: {}
 
   @column.dateTime({ autoCreate: true })

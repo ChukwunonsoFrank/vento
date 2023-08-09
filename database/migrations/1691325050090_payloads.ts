@@ -7,6 +7,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
       table.integer('endpoint_id').unsigned().references('endpoints.id').onDelete('CASCADE')
+      table.string('slug').notNullable()
       table.json('data').notNullable()
       
       /**

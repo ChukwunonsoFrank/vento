@@ -13,6 +13,7 @@ export default class MonitoringController {
             existingEndpoint.requests_count = existingEndpoint.requests_count + 1
             await Payload.create({
                 endpoint_id: existingEndpoint.$attributes.id,
+                slug: 'e3b2-4acb-c4ab-a34eb12',
                 data: request.body()
             })
             await existingEndpoint.save()
@@ -26,6 +27,7 @@ export default class MonitoringController {
 
             await Payload.create({
                 endpoint_id: endpoint.$attributes.id,
+                slug: 'e3b2-4acb-c4ab-a34eb12',
                 data: request.body()
             })
         }
