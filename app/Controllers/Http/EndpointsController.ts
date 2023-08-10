@@ -24,8 +24,14 @@ export default class EndpointsController {
     public async show({ request, view }: HttpContextContract) {
         let payloadData = request.body().payload_data
         payloadData = JSON.parse(payloadData)
-        payloadData.request_body = JSON.parse(base64.decode(payloadData.request_body))
-        payloadData.response_body = JSON.parse(base64.decode(payloadData.response_body))
+        if (payloadData.request_body) {
+            payloadData.request_body = JSON.parse(base64.decode(payloadData.request_body))
+        }
+
+        if (payloadData.response_body) {
+            payloadData.response_body = JSON.parse(base64.decode(payloadData.response_body))
+        }
+
         return view.render('dashboard/endpoint/show', {
             payloadData: JSON.stringify(payloadData)
         })

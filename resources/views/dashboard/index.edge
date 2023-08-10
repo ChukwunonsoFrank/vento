@@ -101,24 +101,24 @@
             <tbody class="table-border-bottom-0">
               @each(endpoint in endpointsList)
               <tr>
-                <form id="endpoint_form" action="{{ route('EndpointsController.index', [endpoint.slug]) }}" method="get"
+                <form id="endpoint_form_{{ endpoint.slug }}" action="{{ route('EndpointsController.index', [endpoint.slug]) }}" method="get"
                   style="display: none;">
                   <input type="hidden" name="clicked" value="true">
                 </form>
-                <td style="cursor: pointer;" onclick="event.preventDefault(); document.getElementById('endpoint_form').submit()">
+                <td style="cursor: pointer;" onclick="event.preventDefault(); document.getElementById('endpoint_form_{{ endpoint.slug }}').submit()">
                     <span class="badge bg-label-primary me-1"><b>{{ endpoint.method.toUpperCase() }}</b></span>
                     {{ endpoint.urlPath }}
                 </td>
-                <td style="cursor: pointer;" onclick="event.preventDefault(); document.getElementById('endpoint_form').submit()">
+                <td style="cursor: pointer;" onclick="event.preventDefault(); document.getElementById('endpoint_form_{{ endpoint.slug }}').submit()">
                   {{ endpoint.requestsCount }}
                 </td>
-                <td style="cursor: pointer;" onclick="event.preventDefault(); document.getElementById('endpoint_form').submit()">
+                <td style="cursor: pointer;" onclick="event.preventDefault(); document.getElementById('endpoint_form_{{ endpoint.slug }}').submit()">
                     {{ endpoint.avgLoadTime.toFixed(2) }}ms
                 </td>
-                <td style="cursor: pointer;" onclick="event.preventDefault(); document.getElementById('endpoint_form').submit()">
+                <td style="cursor: pointer;" onclick="event.preventDefault(); document.getElementById('endpoint_form_{{ endpoint.slug }}').submit()">
                     <span class="badge bg-label-primary me-1">Active</span>
                 </td>
-                <td style="cursor: pointer;" onclick="event.preventDefault(); document.getElementById('endpoint_form').submit()">
+                <td style="cursor: pointer;" onclick="event.preventDefault(); document.getElementById('endpoint_form_{{ endpoint.slug }}').submit()">
                     <span class="badge bg-label-primary me-1">Active</span>
                 </td>
               </tr>

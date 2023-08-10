@@ -19,6 +19,7 @@ export default class MonitoringController {
             await existingEndpoint.save()
         } else {
             const endpoint = await Endpoint.create({
+                slug: '7748b78b-5895-4480-8229-468959fd5fba',
                 method,
                 url_path: raw_url,
                 project_id: project[0]['$attributes'].id,
