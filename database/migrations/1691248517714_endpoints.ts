@@ -7,6 +7,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
       table.integer('project_id').unsigned().references('projects.id').onDelete('CASCADE')
+      table.string('slug').notNullable()
       table.string('method').notNullable()
       table.string('url_path').notNullable()
       table.integer('requests_count').defaultTo(0)

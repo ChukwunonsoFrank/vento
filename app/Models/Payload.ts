@@ -6,7 +6,10 @@ export default class Payload extends BaseModel {
   public id: number
 
   @column()
-  public project_id: number
+  public endpoint_id: number
+
+  @column()
+  public slug: string
 
   @column()
   public data: {}

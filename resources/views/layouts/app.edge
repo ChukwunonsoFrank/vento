@@ -25,6 +25,8 @@
   <!-- Icons. Uncomment required icon fonts -->
   <link rel="stylesheet" href="/assets/vendor/fonts/boxicons.css" />
 
+  <script src="https://kit.fontawesome.com/7016607b5a.js" crossorigin="anonymous"></script>
+
   <!-- Core CSS -->
   <link rel="stylesheet" href="/assets/vendor/css/core.css" class="template-customizer-core-css" />
   <link rel="stylesheet" href="/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
@@ -49,11 +51,11 @@
   <!-- Layout wrapper -->
   <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
-        @include('layouts/partials/aside')
+      @include('layouts/partials/aside')
 
       <!-- Layout container -->
       <div class="layout-page">
-        {{--  navbar goes here  --}}
+        {{-- navbar goes here --}}
         @include('layouts/partials/navbar')
 
         <!-- Content wrapper -->
@@ -61,10 +63,10 @@
           <!-- Content -->
 
           @!section('content')
-          
+
           <!-- / Content -->
 
-          @include('layouts/partials/footer')
+          {{-- @include('layouts/partials/footer') --}}
 
           <div class="content-backdrop fade"></div>
         </div>
@@ -99,6 +101,8 @@
 
   <!-- Place this tag in your head or just before your close body tag. -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+
 </body>
 
 </html>

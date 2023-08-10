@@ -1,0 +1,85 @@
+@layout('layouts/app')
+
+@section('content')
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row">
+        <div class="card mb-4">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <span class="badge bg-label-primary me-1">{{ endpoint.method.toUpperCase() }}</span>
+                        </div>
+                        <div>
+                            <span class="text-right"><small><i class="far fa-clock"></i> {{ '31 seconds ago'
+                                    }}</small></span>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="mt-2">
+                        <h5 class="fw-bold">{{ endpoint.url_path }}</h5>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card border shadow-none p-0" style="border-style: dashed !important;">
+                                <div class="card-body">
+                                    <i class="far fa-clock text-success"></i>
+                                    <span>Avg.load time</span>
+                                    <h5 class="card-title fw-bold mt-2 mb-0">{{ avgLoadTime.toFixed(2) }}ms</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card border shadow-none p-0" style="border-style: dashed !important;">
+                                <div class="card-body">
+                                    <i class="far fa-clock text-success"></i>
+                                    <span>Total throughput</span>
+                                    <h5 class="card-title fw-bold mt-2 mb-0">{{ endpoint.requests_count }}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <h5 class="card-header">Request Logs</h5>
+        <div>
+            <!-- Basic Bootstrap Table -->
+            <div class="card">
+                <div class="table-responsive text-nowrap">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Payload Body</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0 overflow-none">
+                            @each(payload in payloadsList)
+                            <form id="payload_form" action="{{ route('EndpointsController.show', [endpointSlug, payload.slug]) }}" method="post" style="display: none">
+                                <input type="hidden" name="payload_data" value="{{ JSON.stringify(payload.data) }}">
+                            </form>
+                            <tr>
+                                <td style="cursor:pointer" onclick="event.preventDefault(); document.getElementById('payload_form').submit()">
+                                    {{ payload.data['timestamp'] }}
+                                </td>
+                                <td class="text-left" style="cursor:pointer" onclick="event.preventDefault(); document.getElementById('payload_form').submit()">
+                                    {{ JSON.stringify(payload.data).substr(0, 130) + '...' }}
+                                </td>
+                            </tr>
+                            @end
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--/ Basic Bootstrap Table -->
+        </div>
+    </div>
+
+
+</div>
+@endsection

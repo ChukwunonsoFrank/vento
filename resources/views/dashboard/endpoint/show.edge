@@ -1,0 +1,48 @@
+@layout('layouts/app')
+
+@section('content')
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row">
+        <div class="card mb-4">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <span class="me-1">Request Details</span>
+                        </div>
+                        <div>
+                            <span class="text-right"><small><i class="far fa-clock"></i> {{ '31 seconds ago'
+                                    }}</small></span>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div id="json-display" class="py-2 px-4"></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div>
+        <input type="hidden" id="payload-data" value="{{ payloadData }}">
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+
+    <script src="/assets/js/jquery.json-editor.min.js"></script>
+    <script>
+        var payloadString = $('#payload-data').val()
+        var jsonData = JSON.parse(payloadString)
+        console.log(jsonData)
+        var editor = new JsonEditor('#json-display', jsonData)
+        $(window).on('load', function () {
+	        editor.load(jsonData);
+	    });
+    </script>
+
+</div>
+@endsection
