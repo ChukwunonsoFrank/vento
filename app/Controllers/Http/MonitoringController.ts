@@ -7,9 +7,9 @@ import LatencyDatapoint from 'App/Models/LatencyDatapoint'
 export default class MonitoringController {
     public async ingest({ request }: HttpContextContract) {
         const project = await Project.all()
-
         const { method, raw_url } = request.body()
         const existingEndpoint = await Endpoint.query().where('method', method).where('url_path', raw_url).first()
+
         if (existingEndpoint) {
             existingEndpoint.requests_count = existingEndpoint.requests_count + 1
             await Payload.create({
@@ -20,21 +20,16 @@ export default class MonitoringController {
             await existingEndpoint.save()
 
             const endpoint = await Endpoint.query().where('id', existingEndpoint.id).preload('payloads')
-            let responseTimeSum: number = 0
-            let avgLoadTime: number = 0
-            for (let i = 0; i < endpoint[0].payloads.length; i++) {
-                let duration: number = endpoint[0].payloads[i].data["duration"]
-                responseTimeSum += duration
-            }
-            avgLoadTime = responseTimeSum / endpoint[0].payloads.length
+            const averageLoadTime: number = this.getAverageLoadTime(endpoint)
 
             await LatencyDatapoint.create({
                 endpoint_id: existingEndpoint.id,
-                value: avgLoadTime,
+                value: averageLoadTime,
                 category: 'average'
             })
+
         } else {
-            const endpoint = await Endpoint.create({
+            const newEndpoint = await Endpoint.create({
                 slug: '7748b78b-5895-4480-8229-468959fd5fba',
                 method,
                 url_path: raw_url,
@@ -43,28 +38,33 @@ export default class MonitoringController {
             })
 
             await Payload.create({
-                endpoint_id: endpoint.$attributes.id,
+                endpoint_id: newEndpoint.$attributes.id,
                 slug: 'e3b2-4acb-c4ab-a34eb12',
                 data: request.body()
             })
 
-            const endpointsInDB = await Endpoint.query().where('id', endpoint.id).preload('payloads')
-            let responseTimeSum: number = 0
-            let avgLoadTime: number = 0
-            for (let i = 0; i < endpointsInDB[0].payloads.length; i++) {
-                let duration: number = endpointsInDB[0].payloads[i].data["duration"]
-                responseTimeSum += duration
-            }
-            avgLoadTime = responseTimeSum / endpointsInDB[0].payloads.length
-
+            const endpoint = await Endpoint.query().where('id', newEndpoint.id).preload('payloads')
+            const averageLoadTime: number = this.getAverageLoadTime(endpoint)
+            
             await LatencyDatapoint.create({
-                endpoint_id: endpoint.id,
-                value: avgLoadTime,
+                endpoint_id: newEndpoint.id,
+                value: averageLoadTime,
                 category: 'average'
             })
         }
 
         project[0].requests_count = project[0].requests_count + 1
         await project[0].save()
+    }
+
+    public getAverageLoadTime(endpoint: Endpoint[]) {
+        let totalResponseTime: number = 0
+        let averageLoadTime: number = 0
+        for (let i = 0; i < endpoint[0].payloads.length; i++) {
+            let duration: number = endpoint[0].payloads[i].data["duration"]
+            totalResponseTime += duration
+        }
+        averageLoadTime = totalResponseTime / endpoint[0].payloads.length
+        return averageLoadTime
     }
 }

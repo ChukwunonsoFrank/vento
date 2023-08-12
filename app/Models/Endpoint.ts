@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 import Payload from 'App/Models/Payload'
+import LatencyDatapoint from 'App/Models/LatencyDatapoint'
 
 
 export default class Endpoint extends BaseModel {
@@ -26,6 +27,11 @@ export default class Endpoint extends BaseModel {
     foreignKey: 'endpoint_id'
   })
   public payloads: HasMany<typeof Payload>
+
+  @hasMany(() => LatencyDatapoint, {
+    foreignKey: 'endpoint_id'
+  })
+  public latency_datapoints: HasMany<typeof LatencyDatapoint>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

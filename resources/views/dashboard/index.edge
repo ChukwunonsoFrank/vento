@@ -15,7 +15,7 @@
                 <h5 class="text-nowrap mb-2">Requests</h5>
               </div>
               <div class="mt-sm-auto">
-                <h3 class="mb-0">{{ requestsTotal }}</h3>
+                <h3 class="mb-0">{{ projectRequestsCount }}</h3>
               </div>
             </div>
           </div>
@@ -34,7 +34,7 @@
                 <h5 class="text-nowrap mb-2">Endpoints</h5>
               </div>
               <div class="mt-sm-auto">
-                <h3 class="mb-0">{{ endpointsTotal }}</h3>
+                <h3 class="mb-0">{{ totalEndpoints }}</h3>
               </div>
             </div>
           </div>
@@ -110,10 +110,10 @@
                     {{ endpoint.urlPath }}
                 </td>
                 <td style="cursor: pointer;" onclick="event.preventDefault(); document.getElementById('endpoint_form_{{ endpoint.slug }}').submit()">
-                  {{ endpoint.requestsCount }}
+                  {{ endpoint.endpointRequestsCount }}
                 </td>
                 <td style="cursor: pointer;" onclick="event.preventDefault(); document.getElementById('endpoint_form_{{ endpoint.slug }}').submit()">
-                    {{ endpoint.avgLoadTime.toFixed(2) }}ms
+                    {{ endpoint.averageLoadTime.toFixed(2) }}ms
                 </td>
                 <td style="cursor: pointer;" onclick="event.preventDefault(); document.getElementById('endpoint_form_{{ endpoint.slug }}').submit()">
                     <span class="badge bg-label-primary me-1">Active</span>
