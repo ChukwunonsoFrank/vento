@@ -35,7 +35,11 @@
   <!-- Vendors CSS -->
   <link rel="stylesheet" href="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
-  <link rel="stylesheet" href="/assets/vendor/libs/apex-charts/apex-charts.css" />
+  {{--
+  <link rel="stylesheet" href="/assets/vendor/libs/apex-charts/apex-charts.css" /> --}}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"
+    integrity="sha512-EmNxF3E6bM0Xg1zvmkeYD3HDBeGxtsG92IxFt1myNZhXdCav9MzvuH/zNMBU1DmIPN6njrhX1VTbqdJxQ2wHDg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <!-- Page CSS -->
 
@@ -61,6 +65,8 @@
         <!-- Content wrapper -->
         <div class="content-wrapper">
           <!-- Content -->
+
+          <input type="hidden" id="series-average-config" value="{{ chartConfig }}">
 
           @!section('content')
 
@@ -101,6 +107,17 @@
 
   <!-- Place this tag in your head or just before your close body tag. -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+
+  <script>
+    var chartDom = document.getElementById('chart-container');
+    var myChart = echarts.init(chartDom);
+    var chartConfigData = $('#series-average-config').val()
+    var parsedChartConfig = JSON.parse(chartConfigData)
+    myChart.setOption(parsedChartConfig);
+    
+  </script>
 
 
 </body>
