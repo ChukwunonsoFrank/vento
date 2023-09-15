@@ -20,13 +20,22 @@ export default class MonitoringController {
             await existingEndpoint.save()
 
             const endpoint = await Endpoint.query().where('id', existingEndpoint.id).preload('payloads')
-            const averageLoadTime: number = this.getAverageLoadTime(endpoint)
+            const sortedResponseTimes = endpoint[0].payloads.map(payload => payload.data["duration"]).sort((a, b) => a - b)
+            const p50 = this.getP50LoadTime(sortedResponseTimes, sortedResponseTimes.length)
+            const averageLoadTime = this.getAverageLoadTime(endpoint)
 
-            await LatencyDatapoint.create({
-                endpoint_id: existingEndpoint.id,
-                value: averageLoadTime,
-                category: 'average'
-            })
+            await LatencyDatapoint.createMany([
+                {
+                    endpoint_id: existingEndpoint.id,
+                    value: averageLoadTime,
+                    category: 'average'
+                },
+                {
+                    endpoint_id: existingEndpoint.id,
+                    value: p50,
+                    category: 'p50'
+                }
+            ])
 
         } else {
             const newEndpoint = await Endpoint.create({
@@ -44,7 +53,7 @@ export default class MonitoringController {
             })
 
             const endpoint = await Endpoint.query().where('id', newEndpoint.id).preload('payloads')
-            const averageLoadTime: number = this.getAverageLoadTime(endpoint)
+            const averageLoadTime = this.getAverageLoadTime(endpoint)
             
             await LatencyDatapoint.create({
                 endpoint_id: newEndpoint.id,
@@ -57,14 +66,27 @@ export default class MonitoringController {
         await project[0].save()
     }
 
-    public getAverageLoadTime(endpoint: Endpoint[]) {
-        let totalResponseTime: number = 0
-        let averageLoadTime: number = 0
+    public getAverageLoadTime(endpoint) {
+        let totalResponseTime = 0
+        let averageLoadTime = 0
         for (let i = 0; i < endpoint[0].payloads.length; i++) {
-            let duration: number = endpoint[0].payloads[i].data["duration"]
+            let duration = endpoint[0].payloads[i].data["duration"]
             totalResponseTime += duration
         }
         averageLoadTime = totalResponseTime / endpoint[0].payloads.length
         return averageLoadTime
+    }
+
+    public getP50LoadTime(sortedResponseTimes, length) {
+        let p50Position = (50 / 100) * length
+
+        if (length % 2 !== 0) {
+            p50Position = Math.round(p50Position)
+        }
+
+        if(length % 2 === 0) {
+            p50Position = (sortedResponseTimes[p50Position] + sortedResponseTimes[p50Position + 1]) / 2
+        }
+        return sortedResponseTimes[p50Position]
     }
 }

@@ -4333,7 +4333,7 @@ textarea.form-control-lg {
   padding: 0.58rem 0.9375rem;
   color: #697a8d;
   background-color: transparent;
-  border: 1px solid #d9dee3;
+  border: 1px solid #eee;
 }
 .list-group-item:first-child {
   border-top-left-radius: inherit;

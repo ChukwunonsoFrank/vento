@@ -6,16 +6,13 @@
     <div class="col-3">
       <div class="card">
         <div class="card-body">
-          <div class="avatar flex-shrink-0">
-            <img src="../assets/img/icons/unicons/chart-success.png" alt="chart success" class="rounded" />
-          </div>
           <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
             <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
               <div class="card-title">
-                <h5 class="text-nowrap mb-2">Requests</h5>
+                <h5 class="text-nowrap mb-2 text-uppercase font-sm fw-bold">Requests</h5>
               </div>
               <div class="mt-sm-auto">
-                <h3 class="mb-0">{{ projectRequestsCount }}</h3>
+                <h3 class="mb-0 fw-bold">{{ projectRequestsCount }}</h3>
               </div>
             </div>
           </div>
@@ -25,16 +22,13 @@
     <div class="col-3">
       <div class="card">
         <div class="card-body">
-          <div class="avatar flex-shrink-0">
-            <img src="../assets/img/icons/unicons/chart-success.png" alt="chart success" class="rounded" />
-          </div>
           <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
             <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
               <div class="card-title">
-                <h5 class="text-nowrap mb-2">Endpoints</h5>
+                <h5 class="text-nowrap mb-2 font-sm fw-bold text-uppercase">Endpoints</h5>
               </div>
               <div class="mt-sm-auto">
-                <h3 class="mb-0">{{ totalEndpoints }}</h3>
+                <h3 class="mb-0 fw-bold">{{ totalEndpoints }}</h3>
               </div>
             </div>
           </div>
@@ -44,16 +38,13 @@
     <div class="col-3">
       <div class="card">
         <div class="card-body">
-          <div class="avatar flex-shrink-0">
-            <img src="../assets/img/icons/unicons/chart-success.png" alt="chart success" class="rounded" />
-          </div>
           <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
             <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
               <div class="card-title">
-                <h5 class="text-nowrap mb-2">Issues</h5>
+                <h5 class="text-nowrap mb-2 font-sm fw-bold text-uppercase">Issues</h5>
               </div>
               <div class="mt-sm-auto">
-                <h3 class="mb-0">0</h3>
+                <h3 class="mb-0 fw-bold">0</h3>
               </div>
             </div>
           </div>
@@ -63,16 +54,13 @@
     <div class="col-3">
       <div class="card">
         <div class="card-body">
-          <div class="avatar flex-shrink-0">
-            <img src="../assets/img/icons/unicons/chart-success.png" alt="chart success" class="rounded" />
-          </div>
           <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
             <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
               <div class="card-title">
-                <h5 class="text-nowrap mb-2">Fields</h5>
+                <h5 class="text-nowrap mb-2 font-sm fw-bold text-uppercase">Fields</h5>
               </div>
               <div class="mt-sm-auto">
-                <h3 class="mb-0">0</h3>
+                <h3 class="mb-0 fw-bold">0</h3>
               </div>
             </div>
           </div>
@@ -82,7 +70,7 @@
   </div>
 
   <div class="row">
-    <h5 class="card-header">Most Recent Endpoints</h5>
+    <h5 class="card-header font-sm fw-bold">MOST RECENT ENDPOINTS</h5>
     <div>
       <!-- Basic Bootstrap Table -->
       <div class="card">
@@ -90,11 +78,11 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th>Endpoint</th>
-                <th>Throughput</th>
-                <th>Avg.load time</th>
-                <th>P50 Latency</th>
-                <th>P95 Latency</th>
+                <th class="fw-bold">Endpoint</th>
+                <th class="fw-bold">Throughput</th>
+                <th class="fw-bold">Avg.load time</th>
+                <th class="fw-bold">P50 Latency</th>
+                <th class="fw-bold">P95 Latency</th>
                 {{-- <th>Actions</th> --}}
               </tr>
             </thead>
@@ -106,20 +94,20 @@
                   <input type="hidden" name="clicked" value="true">
                 </form>
                 <td style="cursor: pointer;" onclick="event.preventDefault(); document.getElementById('endpoint_form_{{ endpoint.slug }}').submit()">
-                    <span class="badge bg-label-primary me-1"><b>{{ endpoint.method.toUpperCase() }}</b></span>
-                    {{ endpoint.urlPath }}
+                    <span class="font-code-sm badge bg-label-primary me-1 fw-bold">{{ endpoint.method.toUpperCase() }}</span>
+                    <span class="font-code-sm">{{ endpoint.urlPath }}</span>
                 </td>
                 <td style="cursor: pointer;" onclick="event.preventDefault(); document.getElementById('endpoint_form_{{ endpoint.slug }}').submit()">
-                  {{ endpoint.endpointRequestsCount }}
+                  <span class="font-code-sm">{{ endpoint.endpointRequestsCount }}</span>
                 </td>
                 <td style="cursor: pointer;" onclick="event.preventDefault(); document.getElementById('endpoint_form_{{ endpoint.slug }}').submit()">
-                    {{ endpoint.averageLoadTime.toFixed(2) }}ms
+                    <span class="font-code-sm">{{ endpoint.averageLoadTime.toFixed(2) }}ms</span>
                 </td>
                 <td style="cursor: pointer;" onclick="event.preventDefault(); document.getElementById('endpoint_form_{{ endpoint.slug }}').submit()">
-                    <span class="badge bg-label-primary me-1">Active</span>
+                    <span class="font-code-sm">0.34ms</span>
                 </td>
                 <td style="cursor: pointer;" onclick="event.preventDefault(); document.getElementById('endpoint_form_{{ endpoint.slug }}').submit()">
-                    <span class="badge bg-label-primary me-1">Active</span>
+                    <span class="font-code-sm">4.56ms</span>
                 </td>
               </tr>
               @end

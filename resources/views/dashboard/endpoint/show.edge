@@ -3,21 +3,21 @@
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
-        <div class="card mb-4">
+        <div class="card mb-4 px-0">
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">
+                <li class="list-group-item py-3">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <span class="me-1">Request Details</span>
+                            <span class="me-1 fw-bold font-sm">REQUEST DETAILS</span>
                         </div>
                         <div>
-                            <span class="text-right"><small><i class="far fa-clock"></i> {{ '31 seconds ago'
-                                    }}</small></span>
+                            <span class="text-right"><small><u>{{ '31 seconds ago'
+                                    }}</u></small></span>
                         </div>
                     </div>
                 </li>
                 <li class="list-group-item">
-                    <div class="row">
+                    <div class="row font-code-sm">
                         <div id="json-display" class="py-2 px-4"></div>
                     </div>
                 </li>
@@ -37,7 +37,6 @@
     <script>
         var payloadString = $('#payload-data').val()
         var jsonData = JSON.parse(payloadString)
-        console.log(jsonData)
         var editor = new JsonEditor('#json-display', jsonData)
         $(window).on('load', function () {
 	        editor.load(jsonData);

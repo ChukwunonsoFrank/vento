@@ -3,39 +3,35 @@
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
-        <div class="card mb-4">
+        <div class="card mb-4 px-0">
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">
+                <li class="list-group-item py-3">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <span class="badge bg-label-primary me-1">{{ endpoint.method.toUpperCase() }}</span>
+                            <span class="font-code-sm badge bg-label-primary me-1 fw-bold">{{ endpoint.method.toUpperCase() }}</span>
+                            <span class="font-code-sm">{{ endpoint.url_path }}</span>
                         </div>
                         <div>
-                            <span class="text-right"><small><i class="far fa-clock"></i> {{ '31 seconds ago'
-                                    }}</small></span>
+                            <span class="text-right"><small><u>{{ '31 seconds ago'
+                                    }}</u></small></span>
                         </div>
                     </div>
                 </li>
-                <li class="list-group-item">
-                    <div class="mt-2">
-                        <h5 class="fw-bold">{{ endpoint.url_path }}</h5>
-                    </div>
+                <li class="list-group-item py-4">
                     <div class="row">
                         <div class="col-6">
                             <div class="card border shadow-none p-0" style="border-style: dashed !important;">
                                 <div class="card-body">
-                                    <i class="far fa-clock text-success"></i>
-                                    <span>Avg.load time</span>
-                                    <h5 class="card-title fw-bold mt-2 mb-0">{{ averageLoadTime.toFixed(2) }}ms</h5>
+                                    <span class="font-sm fw-bold">AVG. LOAD TIME</span>
+                                    <h3 class="card-title fw-bold mt-2 mb-0">{{ averageLoadTime.toFixed(2) }}ms</h3>
                                 </div>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="card border shadow-none p-0" style="border-style: dashed !important;">
                                 <div class="card-body">
-                                    <i class="far fa-clock text-success"></i>
-                                    <span>Total throughput</span>
-                                    <h5 class="card-title fw-bold mt-2 mb-0">{{ endpoint.requests_count }}</h5>
+                                    <span class="font-sm fw-bold">TOTAL THROUGHPUT</span>
+                                    <h3 class="card-title fw-bold mt-2 mb-0">{{ endpoint.requests_count }}</h3>
                                 </div>
                             </div>
                         </div>
@@ -51,7 +47,7 @@
     </div>
 
     <div class="row">
-        <h5 class="card-header">Request Logs</h5>
+        <h5 class="card-header font-sm fw-bold">REQUEST LOGS</h5>
         <div>
             <!-- Basic Bootstrap Table -->
             <div class="card">
@@ -59,8 +55,8 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Timestamp</th>
-                                <th>Payload Body</th>
+                                <th class="fw-bold">Timestamp</th>
+                                <th class="fw-bold">Payload Body</th>
                             </tr>
                         </thead>
                         <tbody class="table-border-bottom-0 overflow-none">
@@ -70,10 +66,10 @@
                             </form>
                             <tr>
                                 <td style="cursor:pointer" onclick="event.preventDefault(); document.getElementById('payload_form').submit()">
-                                    {{ payload.data['timestamp'] }}
+                                    <span class="font-code-sm fw-bold">{{ payload.data['timestamp'] }}</span>
                                 </td>
                                 <td class="text-left" style="cursor:pointer" onclick="event.preventDefault(); document.getElementById('payload_form').submit()">
-                                    {{ JSON.stringify(payload.data).substr(0, 130) + '...' }}
+                                    <span class="font-code-sm">{{ JSON.stringify(payload.data).substr(0, 130) + '...' }}</span>
                                 </td>
                             </tr>
                             @end
